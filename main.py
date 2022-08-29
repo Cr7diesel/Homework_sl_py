@@ -7,8 +7,6 @@ def del_db(cur):
         DROP TABLE IF EXISTS client;
     ''')
 
-    conn.commit()
-
 
 def create_db(cur):
     cur.execute('''
@@ -28,8 +26,6 @@ def create_db(cur):
         );
     ''')
 
-    conn.commit()
-
 
 def add_client(cur, first_name, last_name, email, phone=None):
     cur.execute('''
@@ -45,16 +41,12 @@ def add_client(cur, first_name, last_name, email, phone=None):
         VALUES (%s, %s);
     ''', (client_id, phone))
 
-    conn.commit()
-
 
 def add_phone(cur, client_id, phone):
     cur.execute('''
         INSERT INTO phone (client_id, phone_number)
         VALUES (%s, %s);
     ''', (client_id, phone))
-
-    conn.commit()
 
 
 def change_client(cur, client_id, first_name=None, last_name=None, email=None, phone_number=None):
@@ -83,8 +75,6 @@ def change_client(cur, client_id, first_name=None, last_name=None, email=None, p
              SET phone_number = %s WHERE client_id = %s;
              """, (phone_number, client_id))
 
-    conn.commit()
-
 
 def delete_phone(cur, client_id, phone_number):
     cur.execute('''
@@ -92,8 +82,6 @@ def delete_phone(cur, client_id, phone_number):
         WHERE client_id = %s 
         AND phone_number = %s;
     ''', (client_id, phone_number))
-
-    conn.commit()
 
 
 def delete_client(cur, client_id):
@@ -106,8 +94,6 @@ def delete_client(cur, client_id):
         DELETE FROM client
         WHERE id = %s;     
     ''', (client_id,))
-
-    conn.commit()
 
 
 def find_client(cur, first_name=None, last_name=None, email=None, phone=None):
